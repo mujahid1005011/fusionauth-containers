@@ -21,7 +21,7 @@ services:
     #depends_on:
     #  - db
     extra_hosts:
-      - "hub.docker.internal:docker-gateway"
+      - "hub.docker.internal:host-gateway"
     environment:
       DATABASE_URL: jdbc:mysql://hub.docker.internal:3306/${FUSIONAUTH_DB_NAME}
       # Prior to version 1.19.0, use this deprecated name
