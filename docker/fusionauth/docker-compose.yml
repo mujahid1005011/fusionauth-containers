@@ -18,8 +18,8 @@ services:
 
   fusionauth:
     image: ${DOCKER_HUB_USER}/fusionauth-app-mysql:latest
-    depends_on:
-      - db
+    #depends_on:
+    #  - db
     extra_hosts:
       - "hub.docker.internal:docker-gateway"
     environment:
