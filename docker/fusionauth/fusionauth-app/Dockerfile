@@ -1,6 +1,6 @@
 #
 # FusionAuth App Dockerfile
-#
+# Change fusionauth to your docker hub account username
 # Build:
 #   > docker pull ubuntu:focal
 #   > docker build -t fusionauth/fusionauth-app:1.32.2 .
@@ -19,6 +19,8 @@ FROM ubuntu:focal as build
 
 ARG JDK_MODULES=java.base,java.compiler,java.desktop,java.instrument,java.logging,java.management,java.naming,java.rmi,java.security.jgss,java.security.sasl,java.scripting,java.sql,java.xml.crypto,jdk.attach,jdk.crypto.ec,jdk.dynalink,jdk.jcmd,jdk.jdi,jdk.localedata,jdk.jpackage,jdk.unsupported,jdk.zipfs
 ARG FUSIONAUTH_VERSION=1.32.2
+#RUN "sh" "-c" "echo nameserver 8.8.8.8 >> /etc/resolv.conf"
+#RUN apt-get update
 RUN ARCH="$(dpkg --print-architecture)"; \
     case "${ARCH}" in \
     aarch64|arm64)\
@@ -57,7 +59,7 @@ RUN ARCH="$(dpkg --print-architecture)"; \
        --module-path /tmp/openjdk/jmods/ \
        --add-modules ${JDK_MODULES} \
        --output /opt/openjdk \
-    && curl -LfsSo /tmp/fusionauth-app.zip https://files.fusionauth.io/products/fusionauth/${FUSIONAUTH_VERSION}/fusionauth-app-${FUSIONAUTH_VERSION}.zip \
+    && curl -LfsSo /tmp/fusionauth-app.zip https://files.fusionauth.io/products/fusionauth/1.32.2/fusionauth-app-1.32.2.zip \
     && mkdir -p /usr/local/fusionauth/fusionauth-app \
     && unzip -nq /tmp/fusionauth-app.zip -d /usr/local/fusionauth
 

@@ -33,7 +33,7 @@
 #  > docker run -p 9011:9011 -it fusionauth/fusionauth-app-mysql
 #
 
-FROM fusionauth/fusionauth-app:1.32.2
+FROM fusionauth/fusionauth-app:1.32.1
 
 # Do not change this version, this is the version that will be expected in the classpath at runtime.
 ARG MYSQL_CONNECTOR_VERSION=8.0.21

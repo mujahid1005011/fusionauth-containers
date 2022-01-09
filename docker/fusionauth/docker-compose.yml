@@ -1,31 +1,33 @@
 version: '3'
 
 services:
-  db:
-    image: postgres:11.9-alpine
-    environment:
-      PGDATA: /var/lib/postgresql/data/pgdata
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#  db:
+#    image: MYSQL:11.9-alpine
+#    environment:
+#      PGDATA: /var/lib/MYSQLql/data/pgdata
+#      MYSQL_USER: ${MYSQL_USER}
+#      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     # Un-comment to access the db service directly
 #   ports:
 #     - 5432:5432
-    networks:
-      - db
-    restart: unless-stopped
-    volumes:
-      - db_data:/var/lib/postgresql/data
+#    networks:
+#      - db
+#    restart: unless-stopped
+#    volumes:
+#      - db_data:/var/lib/MYSQLql/data
 
   fusionauth:
-    image: fusionauth/fusionauth-app:latest
+    image: ${DOCKER_HUB_USER}/fusionauth-app-mysql:latest
     depends_on:
       - db
+    extra_hosts:
+      - "hub.docker.internal:docker-gateway"
     environment:
-      DATABASE_URL: jdbc:postgresql://db:5432/fusionauth
+      DATABASE_URL: jdbc:mysql://hub.docker.internal:3306/${FUSIONAUTH_DB_NAME}
       # Prior to version 1.19.0, use this deprecated name
-      # DATABASE_ROOT_USER: ${POSTGRES_USER}
-      DATABASE_ROOT_USERNAME: ${POSTGRES_USER}
-      DATABASE_ROOT_PASSWORD: ${POSTGRES_PASSWORD}
+      # DATABASE_ROOT_USER: ${MYSQL_USER}
+      DATABASE_ROOT_USERNAME: ${MYSQL_USER}
+      DATABASE_ROOT_PASSWORD: ${MYSQL_PASSWORD}
       # Prior to version 1.19.0, use this deprecated name
       # DATABASE_USER: ${DATABASE_USER}
       DATABASE_USERNAME: ${DATABASE_USERNAME}
@@ -54,5 +56,4 @@ networks:
     driver: bridge
 
 volumes:
-  db_data:
   fa_config:
