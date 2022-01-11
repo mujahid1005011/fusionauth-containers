@@ -2,3 +2,5 @@
 fusionauth-containers.iws
 **/fusionauth-app.zip
 **/fusionauth-search.zip
+.idea
+*.iml
