@@ -38,8 +38,10 @@ FROM fusionauth/fusionauth-app:1.32.1
 # Do not change this version, this is the version that will be expected in the classpath at runtime.
 ARG MYSQL_CONNECTOR_VERSION=8.0.21
 USER root
-RUN apt-get update && apt-get install wget
-RUN wget -o mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar https://files.fusionauth.io/mysql/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar
-RUN chown fusionauth:fusionauth mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar
-RUN cp mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar /usr/local/fusionauth/fusionauth-app/apache-tomcat/lib
+RUN apt-get update \
+    && apt-get -y install libssl-dev \
+    && apt-get -y install wget \
+    && wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar \
+    && chown fusionauth:fusionauth mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar \
+    && cp mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar /usr/local/fusionauth/fusionauth-app/apache-tomcat/lib
 USER fusionauth
