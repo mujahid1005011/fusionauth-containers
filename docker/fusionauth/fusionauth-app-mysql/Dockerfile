@@ -43,5 +43,6 @@ RUN apt-get update \
     && apt-get -y install wget \
     && wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar \
     && chown fusionauth:fusionauth mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar \
-    && cp mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar /usr/local/fusionauth/fusionauth-app/apache-tomcat/lib
+    && cp mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar /usr/local/fusionauth/fusionauth-app/apache-tomcat/lib \
+    && cp mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar /usr/local/fusionauth/fusionauth-app/web/WEB-INF/lib
 USER fusionauth
